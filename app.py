@@ -1,20 +1,19 @@
 import win32api 
 import win32con
 import time
-import random
 
-def move_click(x,y):
-    win32api.SetCursorPos((x, y))
+def move_click():
+    run = False
     try:
         while(True):
-            if win32api.GetKeyState(ord('H')) < 0 : # H Key pressed
-                print('interrupted!')
-                break
-            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
-            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0) 
-            time.sleep(0.1)
+            if win32api.GetKeyState(ord('H')) < 0 :
+                run = not run # H Key pressed
+                print("click")
+            if run:
+                win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
+                win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0) 
+            time.sleep(0.5)
     except KeyboardInterrupt:
         print('interrupted!')
-
-
-move_click(400,600)
+if __name__ == '__main__':
+    move_click()
